@@ -1,0 +1,98 @@
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  password: String!
+  reset : String
+}
+
+
+type Department {
+  departmentID : ID! @id
+  name : String! @unique
+}
+
+type Position {
+  positionId : ID! @id
+  department : Department!
+  basicSalary : Float
+  otRate : Float
+  jobRole : String @unique
+  contractBasis : Boolean
+  PerContractPrice : Float
+}
+
+type Staff {
+  employeeID : ID! @id
+  employeeName : String @unique
+  nicNumber : String @unique
+  bankAccountNumber : String
+  position : Position
+  address : String
+  phoneNumber : String
+  workEmail : String
+  password : String
+  Age : Int
+}
+
+type CardTemplate {
+  CardId: ID! @id
+  CardName : String @unique
+  Category: String
+  Price : Float 
+  Size : String
+  Material : String
+  SearchTags : String
+}
+
+type PhotoFrameTemplate {
+  FrameID : ID! @id
+  FrameName : String @unique
+  FrameMaterial : String
+  PhotoFinish : String
+  Price : Int
+  Dimensions : String
+}
+
+type Item {
+
+  ItemId : ID! @id
+  ItemName : String @unique
+  Category : String 
+  Price : Int
+  Stock : Int
+  Brand : String
+  
+}
+
+type LeaveDay {
+
+  LeaveID : ID! @id
+  StaffMember : Staff!
+  Day : Int
+  Month : Int
+  Year : Int
+  
+}
+
+type EventPackage {
+  PackageID : ID! @id
+  PackageName : String
+  BookingCost : Int
+  FoodPackage : String
+  PhotographyServices : String 
+  Sounds : String
+}
+
+type Customer {
+  CustomerID : ID! @id,
+  CustomerName : String,
+  Address : String,
+  Gender : String,
+  Phone : Int, @unique
+  CustomerEmail : String @unique
+  Ethnicity : String
+  LoyalityPoints : Float
+}
+
+

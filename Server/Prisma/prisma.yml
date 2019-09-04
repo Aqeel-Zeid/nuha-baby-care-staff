@@ -1,0 +1,6 @@
+endpoint: https://nuhaprismadb-e9e96b51e5.herokuapp.com/nuha-graphql/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
