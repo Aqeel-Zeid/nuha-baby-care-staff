@@ -6,7 +6,8 @@ import { ApolloProvider } from 'react-apollo'
 import ApolloClient from 'apollo-boost'
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: 'https://nuhaprismadb-e9e96b51e5.herokuapp.com/nuha-graphql/dev',
+
 })
 
 //Apollo Client
