@@ -3,7 +3,11 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateCardTemplate {
+/* GraphQL */ `type AggregateCakeItem {
+  count: Int!
+}
+
+type AggregateCardTemplate {
   count: Int!
 }
 
@@ -39,12 +43,156 @@ type AggregateStaff {
   count: Int!
 }
 
-type AggregateUser {
-  count: Int!
-}
-
 type BatchPayload {
   count: Long!
+}
+
+type CakeItem {
+  CakeItemID: ID!
+  CakeItemName: String
+  Price: Int
+  Category: String
+  SoldItems: Int
+}
+
+type CakeItemConnection {
+  pageInfo: PageInfo!
+  edges: [CakeItemEdge]!
+  aggregate: AggregateCakeItem!
+}
+
+input CakeItemCreateInput {
+  CakeItemID: ID
+  CakeItemName: String
+  Price: Int
+  Category: String
+  SoldItems: Int
+}
+
+type CakeItemEdge {
+  node: CakeItem!
+  cursor: String!
+}
+
+enum CakeItemOrderByInput {
+  CakeItemID_ASC
+  CakeItemID_DESC
+  CakeItemName_ASC
+  CakeItemName_DESC
+  Price_ASC
+  Price_DESC
+  Category_ASC
+  Category_DESC
+  SoldItems_ASC
+  SoldItems_DESC
+}
+
+type CakeItemPreviousValues {
+  CakeItemID: ID!
+  CakeItemName: String
+  Price: Int
+  Category: String
+  SoldItems: Int
+}
+
+type CakeItemSubscriptionPayload {
+  mutation: MutationType!
+  node: CakeItem
+  updatedFields: [String!]
+  previousValues: CakeItemPreviousValues
+}
+
+input CakeItemSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CakeItemWhereInput
+  AND: [CakeItemSubscriptionWhereInput!]
+  OR: [CakeItemSubscriptionWhereInput!]
+  NOT: [CakeItemSubscriptionWhereInput!]
+}
+
+input CakeItemUpdateInput {
+  CakeItemName: String
+  Price: Int
+  Category: String
+  SoldItems: Int
+}
+
+input CakeItemUpdateManyMutationInput {
+  CakeItemName: String
+  Price: Int
+  Category: String
+  SoldItems: Int
+}
+
+input CakeItemWhereInput {
+  CakeItemID: ID
+  CakeItemID_not: ID
+  CakeItemID_in: [ID!]
+  CakeItemID_not_in: [ID!]
+  CakeItemID_lt: ID
+  CakeItemID_lte: ID
+  CakeItemID_gt: ID
+  CakeItemID_gte: ID
+  CakeItemID_contains: ID
+  CakeItemID_not_contains: ID
+  CakeItemID_starts_with: ID
+  CakeItemID_not_starts_with: ID
+  CakeItemID_ends_with: ID
+  CakeItemID_not_ends_with: ID
+  CakeItemName: String
+  CakeItemName_not: String
+  CakeItemName_in: [String!]
+  CakeItemName_not_in: [String!]
+  CakeItemName_lt: String
+  CakeItemName_lte: String
+  CakeItemName_gt: String
+  CakeItemName_gte: String
+  CakeItemName_contains: String
+  CakeItemName_not_contains: String
+  CakeItemName_starts_with: String
+  CakeItemName_not_starts_with: String
+  CakeItemName_ends_with: String
+  CakeItemName_not_ends_with: String
+  Price: Int
+  Price_not: Int
+  Price_in: [Int!]
+  Price_not_in: [Int!]
+  Price_lt: Int
+  Price_lte: Int
+  Price_gt: Int
+  Price_gte: Int
+  Category: String
+  Category_not: String
+  Category_in: [String!]
+  Category_not_in: [String!]
+  Category_lt: String
+  Category_lte: String
+  Category_gt: String
+  Category_gte: String
+  Category_contains: String
+  Category_not_contains: String
+  Category_starts_with: String
+  Category_not_starts_with: String
+  Category_ends_with: String
+  Category_not_ends_with: String
+  SoldItems: Int
+  SoldItems_not: Int
+  SoldItems_in: [Int!]
+  SoldItems_not_in: [Int!]
+  SoldItems_lt: Int
+  SoldItems_lte: Int
+  SoldItems_gt: Int
+  SoldItems_gte: Int
+  AND: [CakeItemWhereInput!]
+  OR: [CakeItemWhereInput!]
+  NOT: [CakeItemWhereInput!]
+}
+
+input CakeItemWhereUniqueInput {
+  CakeItemID: ID
 }
 
 type CardTemplate {
@@ -1049,6 +1197,12 @@ input LeaveDayWhereUniqueInput {
 scalar Long
 
 type Mutation {
+  createCakeItem(data: CakeItemCreateInput!): CakeItem!
+  updateCakeItem(data: CakeItemUpdateInput!, where: CakeItemWhereUniqueInput!): CakeItem
+  updateManyCakeItems(data: CakeItemUpdateManyMutationInput!, where: CakeItemWhereInput): BatchPayload!
+  upsertCakeItem(where: CakeItemWhereUniqueInput!, create: CakeItemCreateInput!, update: CakeItemUpdateInput!): CakeItem!
+  deleteCakeItem(where: CakeItemWhereUniqueInput!): CakeItem
+  deleteManyCakeItems(where: CakeItemWhereInput): BatchPayload!
   createCardTemplate(data: CardTemplateCreateInput!): CardTemplate!
   updateCardTemplate(data: CardTemplateUpdateInput!, where: CardTemplateWhereUniqueInput!): CardTemplate
   updateManyCardTemplates(data: CardTemplateUpdateManyMutationInput!, where: CardTemplateWhereInput): BatchPayload!
@@ -1103,12 +1257,6 @@ type Mutation {
   upsertStaff(where: StaffWhereUniqueInput!, create: StaffCreateInput!, update: StaffUpdateInput!): Staff!
   deleteStaff(where: StaffWhereUniqueInput!): Staff
   deleteManyStaffs(where: StaffWhereInput): BatchPayload!
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1489,6 +1637,9 @@ input PositionWhereUniqueInput {
 }
 
 type Query {
+  cakeItem(where: CakeItemWhereUniqueInput!): CakeItem
+  cakeItems(where: CakeItemWhereInput, orderBy: CakeItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CakeItem]!
+  cakeItemsConnection(where: CakeItemWhereInput, orderBy: CakeItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CakeItemConnection!
   cardTemplate(where: CardTemplateWhereUniqueInput!): CardTemplate
   cardTemplates(where: CardTemplateWhereInput, orderBy: CardTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardTemplate]!
   cardTemplatesConnection(where: CardTemplateWhereInput, orderBy: CardTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardTemplateConnection!
@@ -1516,9 +1667,6 @@ type Query {
   staff(where: StaffWhereUniqueInput!): Staff
   staffs(where: StaffWhereInput, orderBy: StaffOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Staff]!
   staffsConnection(where: StaffWhereInput, orderBy: StaffOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StaffConnection!
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
@@ -1796,6 +1944,7 @@ input StaffWhereUniqueInput {
 }
 
 type Subscription {
+  cakeItem(where: CakeItemSubscriptionWhereInput): CakeItemSubscriptionPayload
   cardTemplate(where: CardTemplateSubscriptionWhereInput): CardTemplateSubscriptionPayload
   customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
   department(where: DepartmentSubscriptionWhereInput): DepartmentSubscriptionPayload
@@ -1805,168 +1954,6 @@ type Subscription {
   photoFrameTemplate(where: PhotoFrameTemplateSubscriptionWhereInput): PhotoFrameTemplateSubscriptionPayload
   position(where: PositionSubscriptionWhereInput): PositionSubscriptionPayload
   staff(where: StaffSubscriptionWhereInput): StaffSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type User {
-  id: ID!
-  name: String!
-  email: String!
-  password: String!
-  reset: String
-}
-
-type UserConnection {
-  pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
-}
-
-input UserCreateInput {
-  id: ID
-  name: String!
-  email: String!
-  password: String!
-  reset: String
-}
-
-type UserEdge {
-  node: User!
-  cursor: String!
-}
-
-enum UserOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  email_ASC
-  email_DESC
-  password_ASC
-  password_DESC
-  reset_ASC
-  reset_DESC
-}
-
-type UserPreviousValues {
-  id: ID!
-  name: String!
-  email: String!
-  password: String!
-  reset: String
-}
-
-type UserSubscriptionPayload {
-  mutation: MutationType!
-  node: User
-  updatedFields: [String!]
-  previousValues: UserPreviousValues
-}
-
-input UserSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
-  OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
-}
-
-input UserUpdateInput {
-  name: String
-  email: String
-  password: String
-  reset: String
-}
-
-input UserUpdateManyMutationInput {
-  name: String
-  email: String
-  password: String
-  reset: String
-}
-
-input UserWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
-  password: String
-  password_not: String
-  password_in: [String!]
-  password_not_in: [String!]
-  password_lt: String
-  password_lte: String
-  password_gt: String
-  password_gte: String
-  password_contains: String
-  password_not_contains: String
-  password_starts_with: String
-  password_not_starts_with: String
-  password_ends_with: String
-  password_not_ends_with: String
-  reset: String
-  reset_not: String
-  reset_in: [String!]
-  reset_not_in: [String!]
-  reset_lt: String
-  reset_lte: String
-  reset_gt: String
-  reset_gte: String
-  reset_contains: String
-  reset_not_contains: String
-  reset_starts_with: String
-  reset_not_starts_with: String
-  reset_ends_with: String
-  reset_not_ends_with: String
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-}
-
-input UserWhereUniqueInput {
-  id: ID
-  email: String
 }
 `
       }
