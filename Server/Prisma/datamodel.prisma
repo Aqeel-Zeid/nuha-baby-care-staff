@@ -1,11 +1,10 @@
-type User {
-  id: ID! @id
-  name: String!
-  email: String! @unique
-  password: String!
-  reset : String
+type CakeItem {
+  CakeItemID: ID! @id
+  CakeItemName: String
+  Price: Int
+  Category: String
+  SoldItems: Int
 }
-
 
 type Department {
   departmentID : ID! @id
@@ -14,7 +13,7 @@ type Department {
 
 type Position {
   positionId : ID! @id
-  department : Department!
+  department : Department! @relation( name: "PositionToDepartment", onDelete : CASCADE )
   basicSalary : Float
   otRate : Float
   jobRole : String @unique
@@ -27,7 +26,7 @@ type Staff {
   employeeName : String @unique
   nicNumber : String @unique
   bankAccountNumber : String
-  position : Position
+  position : Position @relation( name: "StaffToPosition", onDelete : SET_NULL )
   address : String
   phoneNumber : String
   workEmail : String
@@ -57,7 +56,7 @@ type PhotoFrameTemplate {
 type Item {
 
   ItemId : ID! @id
-  ItemName : String @unique
+  ItemName : String @unique 
   Category : String 
   Price : Int
   Stock : Int
@@ -68,7 +67,7 @@ type Item {
 type LeaveDay {
 
   LeaveID : ID! @id
-  StaffMember : Staff!
+  StaffMember : Staff! @relation( name: "LeaveDayToStaff", onDelete : SET_NULL  )
   Day : Int
   Month : Int
   Year : Int
