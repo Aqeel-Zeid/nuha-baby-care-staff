@@ -6,6 +6,7 @@ import Logo from '../../../src/logo.svg'
 import {useState} from "react"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
+import Cookie from 'universal-cookie'
 
 
     const useStyles = makeStyles({
@@ -91,6 +92,33 @@ export default function Login() {
                     if(data.data.staff.password === password)
                     {
                         console.log(data.data.staff)
+                        const cookie = new Cookie()
+                        cookie.set('USER_STAFF', data.data.staff,{path : '/'})
+                        switch (data.data.staff.position.department.name) {
+                            case 'Human Resource Department': 
+                                console.log('Human Resource Department')
+                                break
+                            case 'Sales Department': 
+                                console.log('Sales Department')
+                                break
+                            case 'Baking Department':
+                                console.log('Baking Department')
+                                break
+                            case 'Event Management Department': 
+                                console.log('Event Management Department')
+                                break
+                            case 'Photography Department': 
+                                console.log('Photography Department')
+                                break
+                            case 'Cards Department': 
+                                console.log('Cards Department')
+                                break
+                            default : console.log('Impossibreuuuu')
+                                break
+
+                        }
+                            
+
                     }
                 }
                 
