@@ -5,6 +5,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { gql, HttpLink, InMemoryCache, ApolloClient} from 'apollo-boost';
 import {useGlobal} from 'reactn'
 import { BrowserRouter as Router} from "react-router-dom";
+import '../src/styles/index.css'
 
 const cache = new InMemoryCache();
 const link = new HttpLink({

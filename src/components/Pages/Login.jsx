@@ -7,6 +7,8 @@ import {useState} from "react"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 import Cookie from 'universal-cookie'
+import {Route, Redirect} from 'react-router-dom'
+
 
 
     const useStyles = makeStyles({
@@ -25,7 +27,7 @@ import Cookie from 'universal-cookie'
     });
 
 
-export default function Login() {
+export default function Login({history}) {
 
    
     
@@ -97,6 +99,7 @@ export default function Login() {
                         switch (data.data.staff.position.department.name) {
                             case 'Human Resource Department': 
                                 console.log('Human Resource Department')
+                                history.push('/HRDashBoard')
                                 break
                             case 'Sales Department': 
                                 console.log('Sales Department')
@@ -212,6 +215,9 @@ export default function Login() {
                     <br/>
                 </Grid>
             </Grid>
+
+            
+
         </Container>
     )
 }
